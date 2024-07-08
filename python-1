@@ -1,0 +1,70 @@
+def ask_question(question, options):
+  """Asks a question and returns the user's answer.
+
+  Args:
+      question: The question to ask the user.
+      options: A list of possible answers.
+
+  Returns:
+      The user's answer (a string).
+  """
+  print(question)
+  for i, option in enumerate(options):
+    print(f"{i+1}. {option}")
+
+  while True:
+    answer = input("Enter your answer (1, 2, 3, or 4): ")
+    try:
+      answer_index = int(answer) - 1
+      if 0 <= answer_index < len(options):
+        return options[answer_index]
+      else:
+        print("Invalid answer. Please enter a number between 1 and 4.")
+    except ValueError:
+      print("Invalid answer. Please enter a number.")
+
+def check_answer(question, answer, correct_answer):
+  """Checks if the user's answer is correct and provides feedback.
+
+  Args:
+      question: The question that was asked.
+      answer: The user's answer.
+      correct_answer: The correct answer.
+
+  Returns:
+      True if the answer is correct, False otherwise.
+  """
+  if answer == correct_answer:
+    print(f"Correct! The answer to '{question}' is {correct_answer}.")
+    return True
+  else:
+    print(f"Incorrect. The answer to '{question}' is {correct_answer}.")
+    return False
+
+def display_score(score, total_questions):
+  """Displays the user's final score.
+
+  Args:
+      score: The user's score.
+      total_questions: The total number of questions in the quiz.
+  """
+  print(f"You answered {score} out of {total_questions} questions correctly.")
+
+def main():
+  """Runs the quiz game."""
+  questions = [
+    {"question": "What is the capital of France?", "options": ["London", "Paris", "Berlin", "Rome"], "correct_answer": "Paris"},
+    {"question": "What is the largest planet in our solar system?", "options": ["Jupiter", "Mars", "Venus", "Earth"], "correct_answer": "Jupiter"},
+    {"question": "What is the world's tallest building?", "options": ["Burj Khalifa", "Shanghai Tower", "Makkah Royal Clock Tower", "One World Trade Center"], "correct_answer": "Burj Khalifa"},
+  ]
+
+  score = 0
+  for question in questions:
+    answer = ask_question(question["question"], question["options"])
+    if check_answer(question["question"], answer, question["correct_answer"]):
+      score += 1
+
+  display_score(score, len(questions))
+
+if _name_ == "_main_":
+  main()
